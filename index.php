@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbrZ4lTHX3vul-LXkrmn7pkTAjX03Xvnw&callback=initMap"></script>
     <script type="text/javascript">
     var geocoder = new google.maps.Geocoder();
 
