@@ -6,91 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbrZ4lTHX3vul-LXkrmn7pkTAjX03Xvnw"></script>
-    <script type="text/javascript">
-        var geocoder = new google.maps.Geocoder();
-
-        function geocodePosition(pos) {
-            geocoder.geocode({
-                latLng: pos
-            }, function(responses) {
-                if (responses && responses.length > 0) {
-                    updateMarkerAddress(responses[0].formatted_address);
-                } else {
-                    updateMarkerAddress('Cannot determine address at this location.');
-                }
-            });
-        }
-
-        function updateMarkerStatus(str) {
-            document.getElementById('markerStatus').innerHTML = str;
-        }
-
-        function updateMarkerPosition(latLng) {
-            document.getElementById('info').innerHTML = [
-                latLng.lat(),
-                latLng.lng()
-            ].join(', ');
-        }
-
-        function updateMarkerAddress(str) {
-            document.getElementById('address').innerHTML = str;
-        }
-
-        function initialize(position) {
-            var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            var map = new google.maps.Map(document.getElementById('mapCanvas'), {
-                zoom: 14,
-                center: latLng,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            });
-            var marker = new google.maps.Marker({
-                position: latLng,
-                title: 'Point A',
-                map: map,
-                draggable: true
-            });
-
-            // Update current position info.
-            updateMarkerPosition(latLng);
-            geocodePosition(latLng);
-
-            // Add dragging event listeners.
-            google.maps.event.addListener(marker, 'dragstart', function() {
-                updateMarkerAddress('Dragging...');
-            });
-
-            google.maps.event.addListener(marker, 'drag', function() {
-                updateMarkerStatus('Dragging...');
-                updateMarkerPosition(marker.getPosition());
-            });
-
-            google.maps.event.addListener(marker, 'dragend', function() {
-                updateMarkerStatus('Drag ended');
-                geocodePosition(marker.getPosition());
-            });
-        }
-
-        var x = document.getElementById("demo");
-
-        function showPosition(position) {
-            console.log(position);
-            initialize(position);
-        }
-
-        function getLocation() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
-            } else {
-                x.innerHTML = "Geolocation is not supported by this browser.";
-            }
-        }
-
-        // Onload handler to fire off the app.
-        google.maps.event.addDomListener(window, 'load', getLocation);
-    </script>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -101,29 +20,28 @@
 </head>
 
 <body>
-    <style>
-        #mapCanvas {
-            width: 500px;
-            height: 400px;
-            float: left;
-        }
-        #infoPanel {
-            float: left;
-            margin-left: 10px;
-        }
-        #infoPanel div {
-            margin-bottom: 5px;
-        }
-    </style>
-    <div id="mapCanvas"></div>
-    <div id="infoPanel">
-        <b>Marker status:</b>
-        <div id="markerStatus"><i>Click and drag the marker.</i>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="mapCanvas"></div>
+            </div>
         </div>
-        <b>Current position:</b>
-        <div id="info"></div>
-        <b>Closest matching address:</b>
-        <div id="address"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="infoPanel">
+                    <b>Closest matching address</b>
+                    <p id="address"></p>
+
+                    <b>Current position</b>
+                    <p id="info"></p>
+
+                    <b>Marker status</b>
+                    <div id="markerStatus">
+                        <p>Click and drag the marker.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- jQuery -->
@@ -131,5 +49,6 @@
     <!-- Bootstrap JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/script.js"></script>
 </body>
 </html>
